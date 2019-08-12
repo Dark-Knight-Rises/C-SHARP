@@ -1,0 +1,59 @@
+/*
+ * Created by SharpDevelop.
+ * User: Piyush
+ * Date: 12-08-2019
+ * Time: 15:28
+ * Wap in C# to find out wheather two given strings are anargams of each other.
+ * For eg: Aaagmnrs and anagram are anargams of each other.
+ * Given phrases, remove each phrase that is an anargam of an earlier phrase,
+ * and return the remaining phrases in thier original order.
+ */
+using System;
+using System.Text;
+using System.Linq;
+namespace Anargams
+{
+	class Program
+	{
+		public static void Main(string[] args)
+		{
+			if (args.Length==0)
+				Console.WriteLine("Command line arguments arent supplied. ");
+			else
+			{
+				for (int i = 0; i < args.Length-1; i++) 
+				{
+					Console.WriteLine("\nFor indexes "+i+"and "+(i+1));
+					if ((args[i].Length==args[i+1].Length)&&(isAnargam(args[i],args[i+1])))
+					{
+						Console.WriteLine("An Anargam Found Which is: "+args[i]+" and "+args[i+1]);
+						Console.WriteLine("Removing the element containing anargam. ");
+						args[i]="";
+					}
+					else
+						Console.WriteLine("Not an Anargam: "+args[i]+" and "+args[i+1]);
+				}
+			}
+			Console.WriteLine("\n--The String Left is:-- ");
+			for (int i = 0; i < args.Length; i++) {
+				Console.Write(args[i]+" ");
+			}
+			Console.Write("\nPress any key to continue . . . ");
+			Console.ReadKey(true);
+		}
+		public static bool isAnargam(string s1,string s2)
+		{
+			string lwrS1,lwrS2;
+			lwrS1=s1.ToLower();
+			lwrS2=s2.ToLower();
+			char[] c1 = lwrS1.ToCharArray();
+			char[] c2 = lwrS2.ToCharArray();
+			Array.Sort(c1);
+			Array.Sort(c2);
+			string resS1=new string(c1);
+			string resS2=new string(c2);
+//			Console.WriteLine("S1: "+resS1+" S2: "+resS2);
+			return(resS1.Equals(resS2));
+		}
+	}
+}
